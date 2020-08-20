@@ -3,22 +3,27 @@
 #include<stdlib.h>
 #include<windows.h>
 #include<time.h>
-//#include<random>
+//#include<random>  //注释掉是因为我不会用……也没用着……那什么什么mt19959的让人头晕的玩意儿……
+
 int table[1000],left,right,out;
+//限制为1000是因为我把结果展示部分（result函数）设计成3位整数的了，那样美观且实用
+
 int random(int floor,int ceil) {
 	if (ceil-floor>0) return floor+rand()%(ceil-floor);
 	else return ceil;
 }
-void initialize() {
+
+void initialize() { //初始化部分
 	left=NULL;
 	right=NULL;
-	out=NULL;
-	srand(time(NULL));
+	out=NULL; //我想想办法解决当输入了字母时爆炸的问题，但似乎赋值NULL不起作用……
+	srand(time(NULL)); //经典菜鸟操作
 	for(int i=0; i<=999; i++) {
 		table[i]=i;
 	}
 }
-void get_parameter() {
+
+void get_parameter() { //获得参数
 	printf("Enter range left edge: ");
 	scanf("%d",&left);
 	printf("Enter range right edge: ");
@@ -26,14 +31,16 @@ void get_parameter() {
 	printf("Enter sample size: ");
 	scanf("%d",&out);
 }
-void please_wait() {
+
+void please_wait() { //“请等待”的UI，其实是为了装B
 	printf("\n############################\n");
 	printf("#                          #\n");
 	printf("#      Please wait...      #\n");
 	printf("#                          #\n");
 	printf("############################\n");
 }
-bool statement() {
+
+bool statement() { //状态显示
 	system("cls");
 	printf("Enter range left edge: %d\n",left);
 	printf("Enter range right edge: %d\n",right);
@@ -61,16 +68,20 @@ bool statement() {
 		return 1;
 	}
 }
-void shuffle() {
+
+void shuffle() { //乱序操作：网上看到的洗牌算法
 	int target,temp;
 	for(int i=left; i<=right; i++) {
 		temp=table[i];
-		target=random(left,right);
+		target=random(left,i);
 		table[i]=table[target];
 		table[target]=temp;
+		//Knuth-Shuffle 算法
+		//1~x，从最后一个数开始，往前遍历，每一次，从当前数和第 1 个数之间，随机选择一个数，与当前数字进行交换
 	}
 }
-void result() {
+
+void result() { //结果展示
 	for(int j=1; j<=4*(out/4); j=j+4) {
 		printf("#  %3d   %3d   %3d   %3d   #\n",table[j+left-1],table[j+left],table[j+left+1],table[j+left+2]);
 	}
@@ -87,7 +98,8 @@ void result() {
 	}
 	printf("############################\n");
 }
-void final() {
+
+void final() { //结束返回
 	Sleep(100);
 	printf("#      press any key       #\n");
 	printf("#        to restart        #\n");
@@ -95,8 +107,9 @@ void final() {
 	getch();
 	system("cls");
 }
+
 int main() {
-	while(1) {
+	while(1) { //日常死循环lol
 		initialize();
 		get_parameter();
 		please_wait();
