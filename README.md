@@ -13,7 +13,7 @@
 
 从cin学到了scanf，
 
-从int x学到了int x[0xfff]，又到了vector<int> x(0xfff,0)，
+从int x学到了int x[0xfff]，又到了vector<int x(0xfff,0)，
 
 ……
 
