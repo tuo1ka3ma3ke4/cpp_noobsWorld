@@ -14,9 +14,6 @@ int random(int floor,int ceil) {
 }
 
 void initialize() { //初始化部分
-	left=NULL;
-	right=NULL;
-	out=NULL; //我想想办法解决当输入了字母时爆炸的问题，但似乎赋值NULL不起作用……
 	srand(time(NULL)); //经典菜鸟操作
 	for(int i=0; i<=999; i++) {
 		table[i]=i;
